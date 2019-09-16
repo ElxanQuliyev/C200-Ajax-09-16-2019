@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <label class="control-label">Marka</label>
+        <select id="marka" name="Marka" class="form-control">
+            @foreach (var markaItem in ViewBag.marka)
+            {
+                <option value="@markaItem.Id">@markaItem.Name</option>
+            }
+            <option></option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label class="control-label">Model</label>
+
+        <select id="model" name="Model" class="form-control">
+            <option></option>
+        </select>
+    </div>    
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $("#marka").change(function () {
+            var markaId=$(this).val()
+            $.ajax({
+                url: 'https://localhost:44364/Ajax/GetModels/' + markaId,
+                Type:"Get",
+                dataType: "Json",
+                success: function (res) {
+                    var result = res.response;
+                    $("#model").empty();
+                    for (var i = 0; i < result.length; i++) {
+                        //console.log(result[i].Name)
+                        $("#model").append("<option>"+result[i].Name+"</option>")
+                    }
+                }
+            })
+        })
+    </script>    
+    }

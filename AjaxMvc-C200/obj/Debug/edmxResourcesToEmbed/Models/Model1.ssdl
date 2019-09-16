@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarsC200Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Marka">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Model">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="MarkaId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Model__MarkaId__398D8EEE">
+    <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+    <End Role="Model" Type="Self.Model" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marka">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Model">
+        <PropertyRef Name="MarkaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarsC200ModelStoreContainer">
+    <EntitySet Name="Marka" EntityType="Self.Marka" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Model__MarkaId__398D8EEE" Association="Self.FK__Model__MarkaId__398D8EEE">
+      <End Role="Marka" EntitySet="Marka" />
+      <End Role="Model" EntitySet="Model" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
